@@ -10,11 +10,22 @@ const onSuccess = function (data) {
   }
 }
 
+// Now, what if we don't expect data back?
+const onSuccessButNoContent = function () {
+  console.log('Your request was successful and returned no content')
+}
+
+const onCreateSuccess = function (data) {
+  console.log('You created a book! The id is ' + data.book.id)
+}
+
 const onError = function (response) {
   console.error(response)
 }
 
 module.exports = {
   onSuccess,
-  onError
+  onError,
+  onSuccessButNoContent,
+  onCreateSuccess
 }

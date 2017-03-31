@@ -16,9 +16,11 @@ const onGetBooks = function (event) {
     .then(booksUi.onSuccess)
     .catch(booksUi.onError)
 }
+
 const onGetBook = function (event) {
   event.preventDefault()
-  const book = getFormFields(event.target).book
+  const data = getFormFields(event.target)
+  const book = data.book
 
   if (book.id.length !== 0) {
     booksApi.show(book.id)
@@ -28,9 +30,11 @@ const onGetBook = function (event) {
     console.log('Please provide a book id!')
   }
 }
+
 const onDeleteBook = function (event) {
   event.preventDefault()
-  const book = getFormFields(event.target).book
+  const data = getFormFields(event.target)
+  const book = data.book
 
   if (book.id.length !== 0) {
     booksApi.destroy(book.id)
@@ -41,8 +45,39 @@ const onDeleteBook = function (event) {
   }
 }
 
+const onUpdateBook = function (event) {
+  event.preventDefault()
+  const data = getFormFields(event.target)
+  const book = data.book
+
+  if (book.id.length !== 0) {
+    booksApi.update(data)
+    .then(booksUi.onSuccessButNoContent)
+    .catch(booksUi.onError)
+  } else {
+    console.log('Please provide a book id!')
+  }
+}
+
+const onCreateBook = function (event) {
+  event.preventDefault()
+  const data = getFormFields(event.target)
+  const book = data.book
+  // console.log(book)
+
+  if (book.title.length !== 0 || book.author.length !== 0) {
+    booksApi.create(data)
+    .then(booksUi.onCreateSuccess)
+    .catch(booksUi.onError)
+  } else {
+    console.log('Please provide a book title and author!')
+  }
+}
+
 module.exports = {
   onGetBooks,
   onGetBook,
-  onDeleteBook
+  onDeleteBook,
+  onUpdateBook,
+  onCreateBook
 }

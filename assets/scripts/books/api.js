@@ -23,8 +23,26 @@ const destroy = function (id) {
   })
 }
 
+const update = function (data) {
+  return $.ajax({
+    url: app.host + '/books/' + data.book.id,
+    method: 'PATCH',
+    data: data
+  })
+}
+
+const create = function (data) {
+  return $.ajax({
+    url: app.host + '/books/',
+    method: 'POST',
+    data: data
+  })
+}
+
 module.exports = {
   index,
   show,
-  destroy
+  destroy,
+  update,
+  create
 }
